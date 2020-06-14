@@ -55,7 +55,7 @@ function validate(string $id): bool {
 }
 
 $url = 'https://s3.amazonaws.com/cognisant-interview-resources/identifiers.json';
-$arrayOfId = getData($url);
+$arrayOfIds = getData($url);
 
 function getData(string $url): array
 {
@@ -71,14 +71,21 @@ function getData(string $url): array
 
     return $result;
 }
+
 $validCounter = 0;
 $invalidCounter = 0;
-foreach($arrayOfId as $id) {
+
+$before = microtime(true);
+
+foreach($arrayOfIds as $id) {
     if(validate($id)){
         $validCounter++;
     }else{
         $invalidCounter++;
     }
 }
+
+$after = microtime(true);
+echo 'Time taken:' . ($after-$before) . '<br>';
 
 echo $validCounter . " + " . $invalidCounter ." = " . ($validCounter + $invalidCounter);
