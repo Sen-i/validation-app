@@ -1,91 +1,34 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Id Validation</title>
+</head>
+<body style='text-align: center'>
+<form action="" method="POST">
+    <label>Enter ID for validation
+        <br/>
+        <input type="text" name="id" placeholder="Enter ID">
+    </label>
+    <br/>
+    <button type="submit" name="Submit">
+        Submit
+    </button>
+    <div>
+        <?php
+        $result = '';
+        require_once('app.php');
+        echo '<br>' . $result;
+        ?>
+    </div>
+</form>
 
-function numberCheck(string $id): bool {
-    if(!$id) {
-        return false;
-    }elseif (strlen($id) !== 10) {
-        return false;
-    }elseif (!is_numeric($id) || $id < 0) {
-        return false;
-    }elseif (is_numeric($id) && strpos($id,'.') !== false ) {
-        return false;
-    }elseif(repeatingNumber($id)) {
-        return false;
-    }
-    return true;
-}
+<form action='countValid.php' method="get">
+    <button>
+        Click me to validate File
+    </button>
+</form>
 
-function repeatingNumber(string $id): bool {
-    for($i = 0; $i < strlen($id); $i++) {
-        if($id[0] !== $id[$i]) {
-            return false;
-        }
-    }
-    return true;
-}
+</body>
 
-function digitCheck(string $id): bool {
-    $sum = 0;
-    $digits = str_split( $id, 1);
-
-    for($i = 0; $i < 9; $i++) {
-        $sum += ($digits[$i] * (11 - $i));
-    }
-
-    $remainder = $sum % 12;
-    $result = 12 - $remainder;
-    $result = strval($result);
-
-    if($result === '10' || $result === '12') {
-        return false;
-    }elseif ($result === '11' && $digits[9] === '0') {
-        return true;
-    }elseif ($result === $digits[9]) {
-        return true;
-    }
-    return false;
-}
-
-function validate(string $id): bool {
-    if(numberCheck($id) && digitCheck($id)) {
-        return true;
-    }else {
-        return false;
-    }
-}
-
-$url = 'https://s3.amazonaws.com/cognisant-interview-resources/identifiers.json';
-$arrayOfIds = getData($url);
-
-function getData(string $url): array
-{
-    $ch = curl_init();
-
-    curl_setopt($ch, CURLOPT_URL, $url);
-
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-    $output = curl_exec($ch);
-    $result = json_decode($output, true);
-    curl_close($ch);
-
-    return $result;
-}
-
-$validCounter = 0;
-$invalidCounter = 0;
-
-$before = microtime(true);
-
-foreach($arrayOfIds as $id) {
-    if(validate($id)){
-        $validCounter++;
-    }else{
-        $invalidCounter++;
-    }
-}
-
-$after = microtime(true);
-echo 'Time taken:' . ($after-$before) . '<br>';
-
-echo $validCounter . " + " . $invalidCounter ." = " . ($validCounter + $invalidCounter);
+</html>

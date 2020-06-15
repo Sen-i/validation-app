@@ -59,11 +59,20 @@ class NumberCheckTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testNumberCheck_InValidRecurringNumber()
+    public function testRepeatingNumber_success()
+    {
+        $expected = true;
+        $input = '2222222222';
+        $result = repeatingNumber($input);
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testRepeatingNumber_fail()
     {
         $expected = false;
-        $input = '2222222222';
-        $result = numberCheck($input);
+        $input = '2222222221';
+        $result = repeatingNumber($input);
 
         $this->assertEquals($expected, $result);
     }
