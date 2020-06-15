@@ -61,8 +61,8 @@ function validate(string $id): string
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
     if (validate($id)) {
-        $result = 'ID :' . $id . ' is Valid';
+        $result = 'ID : ' . $id . ' is Valid';
     } else {
-        $result = 'ID :' . $id . ' is Invalid';
+        $result = 'ID : ' . $id . ' is Invalid';
     }
 }

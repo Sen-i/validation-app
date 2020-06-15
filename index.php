@@ -23,7 +23,7 @@
     </div>
 </form>
 
-<form action='countValid.php' method="get">
+<form action='countValid.php'>
     <button>
         Click me to validate File
     </button>
