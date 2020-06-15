@@ -8,7 +8,7 @@ function numberCheck(string $id): bool
         return false;
     } elseif (!is_numeric($id) || $id < 0) {
         return false;
-    } elseif (is_numeric($id) && strpos($id, '.') !== false) {
+    } elseif (strpos($id, '.') !== false) {
         return false;
     } elseif (repeatingNumber($id)) {
         return false;
