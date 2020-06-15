@@ -1,5 +1,5 @@
 <?php
-require_once ('index.php');
+require_once('index.php');
 
 $url = 'https://s3.amazonaws.com/cognisant-interview-resources/identifiers.json';
 $arrayOfIds = getData($url);
